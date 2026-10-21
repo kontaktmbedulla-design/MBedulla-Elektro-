@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paneli i Menaxherit | ElektroTrack ⚡</title>
+  <style>
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: #f1f5f9; margin: 0; padding: 20px; color: #1e293b; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    
+    header { display: flex; justify-content: space-between; align-items: center; background: #0f172a; color: white; padding: 15px 25px; border-radius: 12px; margin-bottom: 25px; }
+    header h2 { margin: 0; font-size: 20px; color: #f59e0b; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 25px; }
+    .stat-card { background: white; padding: 20px; border-radius: 12px; border-left: 5px solid #3b82f6; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .stat-card h3 { margin: 0 0 5px 0; font-size: 14px; color: #64748b; }
+    .stat-card .value { font-size: 24px; font-weight: bold; }
+
+    .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 25px; }
+    .card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+
+    table { width: 100%; border-collapse: collapse; text-align: left; }
+    th, td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+    th { background: #f8fafc; color: #475569; font-weight: 600; }
+    
+    .badge { padding: 4px 8px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+    .badge-active { background: #dcfce7; color: #166534; }
+    .badge-offline { background: #fee2e2; color: #991b1b; }
+    .badge-gps { background: #e0f2fe; color: #075985; }
+
+    .btn { background: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 500; }
+    .btn:hover { background: #1d4ed8; }
+    .btn-pdf { background: #d97706; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  
+  <header>
+    <h2>ElektroTrack ⚡ | Paneli i Control-it</h2>
+    <span>📅 14 Tetor 2026</span>
+  </header>
+
+  <!-- Përmbledhja (Stats) -->
+  <div class="stats-grid">
+    <div class="stat-card" style="border-color: #22c55e;">
+      <h3>Punëtorë në Terren (Atëherë)</h3>
+      <div class="value">4 / 5</div>
+    </div>
+    <div class="stat-card" style="border-color: #3b82f6;">
+      <h3>Objekte me Punime</h3>
+      <div class="value">3 Objekte</div>
+    </div>
+    <div class="stat-card" style="border-color: #f59e0b;">
+      <h3>Gjithsej Orë Sot</h3>
+      <div class="value">32.5 std</div>
+    </div>
+  </div>
+
+  <!-- Tabela e Statusit në Kohë Reale -->
+  <div class="card">
+    <div class="card-header">
+      <h3 style="margin:0;">📍 Punëtorët dhe Vendndodhja Aktuale</h3>
+      <button class="btn btn-pdf" onclick="alert('Po shkarkohet raporti PDF...')">📄 Eksporto Raportin Mujor</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Elektricisti</th>
+          <th>Objekti</th>
+          <th>Check-in</th>
+          <th>Statusi GPS</th>
+          <th>Statusi</th>
+        </tr>
+      </thead>
+      <tbody id="workerTable">
+        <tr>
+          <td><strong>Agon Berisha</strong></td>
+          <td>Objekti Banesor - Rruga B</td>
+          <td>07:45 AM</td>
+          <td><span class="badge badge-gps">🟢 Verified (12m)</span></td>
+          <td><span class="badge badge-active">Në Punë</span></td>
+        </tr>
+        <tr>
+          <td><strong>Driton Gashi</strong></td>
+          <td>Shtëpia e A. Berishës</td>
+          <td>08:00 AM</td>
+          <td><span class="badge badge-gps">🟢 Verified (45m)</span></td>
+          <td><span class="badge badge-active">Në Punë</span></td>
+        </tr>
+        <tr>
+          <td><strong>Valon Hoxha</strong></td>
+          <td>Parku Fotovoltaik - Podujevë</td>
+          <td>08:15 AM</td>
+          <td><span class="badge badge-gps">🟢 Verified (8m)</span></td>
+          <td><span class="badge badge-active">Në Punë</span></td>
+        </tr>
+        <tr>
+          <td><strong>Krenar Rama</strong></td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td><span class="badge badge-offline">Pushim / Jashtë Orarit</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</body>
+</html>
