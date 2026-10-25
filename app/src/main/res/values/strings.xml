@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">ElektroTrack</string>
+    <string name="manager_panel_title">ElektroTrack ⚡ | Paneli i Kontrollit</string>
+    <string name="workers_in_field">Punëtorë në Terren</string>
+    <string name="active_sites">Objekte me Punime</string>
+    <string name="total_hours_today">Gjithsej Orë Sot</string>
+    <string name="worker_location_title">📍 Punëtorët dhe Vendndodhja Aktuale</string>
+    <string name="export_monthly_report">📄 Eksporto Raportin Mujor</string>
+    <string name="electrician">Elektricisti</string>
+    <string name="site">Objekti</string>
+    <string name="check_in">Check-in</string>
+    <string name="gps_status">Statusi GPS</string>
+    <string name="status">Statusi</string>
+    <string name="status_working">Në Punë</string>
+    <string name="status_break">Pushim / Jashtë Orarit</string>
+    <string name="status_paused">Në Pauzë</string>
+    <string name="filter_all">Të gjithë</string>
+    <string name="sites_title">Objektet me Punime</string>
+    <string name="timesheets_title">Raporti &amp; Orët e Punës</string>
+    <string name="worker_simulation_title">Simulimi &amp; Check-in</string>
+</resources>

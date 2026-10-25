@@ -1,0 +1,6 @@
+{
+  "name": "ElektroTrack",
+  "description": "Paneli i Menaxherit për monitorimin në kohë reale të elektricistëve në terren, objekteve dhe orarit të punës me verifikim GPS.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account and role in ElektroTrack",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "role": { "type": "string", "enum": ["MANAGER", "ELECTRICIAN"] },
+        "workerId": { "type": "string" }
+      },
+      "required": ["uid", "email", "role"]
+    },
+    "Worker": {
+      "title": "Worker",
+      "description": "Electrician field worker",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "role": { "type": "string" },
+        "currentSiteId": { "type": "string" },
+        "checkInTime": { "type": "string" },
+        "status": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "distanceMeters": { "type": "number" },
+        "isVerifiedGps": { "type": "boolean" }
+      },
+      "required": ["id", "name", "role", "status"]
+    },
+    "WorkSite": {
+      "title": "WorkSite",
+      "description": "Construction or electrical job site",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "address": { "type": "string" },
+        "latitude": { "type": "number" },
+        "longitude": { "type": "number" },
+        "geofenceRadiusMeters": { "type": "number" },
+        "projectManager": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "name", "address", "latitude", "longitude"]
+    },
+    "Timesheet": {
+      "title": "Timesheet",
+      "description": "Work hours and check-in logs",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workerId": { "type": "string" },
+        "workerName": { "type": "string" },
+        "siteId": { "type": "string" },
+        "siteName": { "type": "string" },
+        "date": { "type": "string" },
+        "startTime": { "type": "string" },
+        "endTime": { "type": "string" },
+        "totalHours": { "type": "number" },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "workerId", "siteId", "date"]
+    },
+    "Alert": {
+      "title": "Alert",
+      "description": "Notification or geofence boundary warning",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "workerId": { "type": "string" },
+        "workerName": { "type": "string" },
+        "siteName": { "type": "string" },
+        "type": { "type": "string" },
+        "message": { "type": "string" },
+        "timestamp": { "type": "string" },
+        "isRead": { "type": "boolean" }
+      },
+      "required": ["id", "workerId", "message", "timestamp"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "User profiles and assigned role"
+    },
+    "/workers/{workerId}": {
+      "schema": "Worker",
+      "description": "Electrician field staff"
+    },
+    "/sites/{siteId}": {
+      "schema": "WorkSite",
+      "description": "Job locations and geofence definitions"
+    },
+    "/timesheets/{timesheetId}": {
+      "schema": "Timesheet",
+      "description": "Daily timesheets and hourly logs"
+    },
+    "/alerts/{alertId}": {
+      "schema": "Alert",
+      "description": "Manager and electrician system alerts"
+    }
+  }
+}
