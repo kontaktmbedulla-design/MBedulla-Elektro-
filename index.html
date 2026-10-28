@@ -114,7 +114,7 @@ const persist=()=>{if(sbOn()){sbSoon();return}try{localStorage.setItem(KEY,JSON.
 /* ================= SUPABASE (server mode) ================= */
 const SBK='et_sb_cfg';
 /* KONFIGURIM I PËRBASHKËT: shkruaj këtu URL dhe çelësin "anon public" të Supabase që punëtorët të mos i shkruajnë vetë. */
-const SBDEF={url:'https://gllgysoxlouaxlrloddm.supabase.co',key:'PASTE-ANON-KEY-HERE'};
+const SBDEF={url:'https://gllgysoxlouaxlrloddm.supabase.co',key:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdsbGd5c294bG91YXhscmxvZGRtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwNDQ5NjUsImV4cCI6MjEwODYyMDk2NX0.DNHs_PGM9jq50qZlwpo2C-CIaId6Oq6jWLvuk5tRQOk'};
 let SB=null;try{SB=JSON.parse(localStorage.getItem(SBK))}catch(e){}
 if(!(SB&&SB.url&&SB.key)&&SBDEF.url&&SBDEF.key)SB=SBDEF;
 function sbSetupMode(){return /(^|[#?&])setup(\b|=)/.test(location.hash+location.search)}
