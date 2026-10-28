@@ -94,6 +94,7 @@ ul.plain{list-style:none;margin:0;padding:0}ul.plain li{display:flex;justify-con
 @media print{.rep{break-after:page;border:0;margin:0 auto}.rep:last-child{break-after:auto}}
 </style>
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#14202b"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="ElektroTrack"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></head>
+</head>
 <body>
 <header><div class="in"><div class="logo">⚡ ElektroTrack Pro</div><div class="lang" id="lang"></div></div><div class="stripe"></div></header>
 <main id="app"></main>
@@ -162,7 +163,7 @@ function inqTab(){const l=ui.inq||[],stl={new:t('inqNew'),contacted:t('inqCon'),
 ${q.address?`<div>📍 <a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q.address)}">${esc(q.address)}</a></div>`:''}${q.kind?`<div><b>${esc(q.kind)}</b></div>`:''}<p style="white-space:pre-wrap;margin:8px 0">${esc(q.message)}</p>
 <div class="row" style="align-items:center"><select style="flex:0 1 180px" onchange="inqSet(${q.id},this.value)">${Object.keys(stl).map(k=>`<option value="${k}" ${q.status===k?'selected':''}>${stl[k]}</option>`).join('')}</select>${ui.admin?`<button class="btn sm" onclick="inqOffer(${q.id})">${t('inqMk')}</button>`:''}<button class="btn sm red" style="flex:0 0 auto" onclick="inqDel(${q.id})">${t('del')}</button></div></section>`).join('')}
 /* ---- record mapping ---- */
-const SBW={1:['sessions','materials','requests','tasks'],2:['sessions','materials','requests','tasks','workers','sites','abs','pub'],3:['sessions','materials','requests','tasks','workers','sites','abs','pub','offers','invoices','cfg']};
+const SBW={1:['materials','requests','tasks'],2:['sessions','materials','requests','tasks','workers','sites','abs','pub'],3:['sessions','materials','requests','tasks','workers','sites','abs','pub','offers','invoices','cfg']};
 function sbFlat(){const m=new Map(),ok=SBW[sbLvl()],add=(k,id,owner,data)=>{if(ok.includes(k))m.set(k+':'+id,{kind:k,id,owner:owner==null?null:owner,data,j:JSON.stringify(data)})};
  S.workers.forEach(w=>{const d={...w};delete d.pw;add('workers',w.id,w.id,d)});
  ['sessions','materials','requests','tasks'].forEach(k=>S[k].forEach(x=>add(k,x.id,x.wid,x)));
@@ -252,6 +253,9 @@ ${myHours(w)}
 <section class="card"><div class="mute" style="margin-bottom:8px">${t('contact')}</div><div class="row"><a class="btn ghost" style="text-align:center;text-decoration:none" href="https://wa.me/38344123456" target="_blank" rel="noopener">WhatsApp</a><a class="btn ghost" style="text-align:center;text-decoration:none" href="tel:+38344123456">${t('call')}</a></div></section>`}
 function clockStr(ms){const s=Math.floor(ms/1000);return [Math.floor(s/3600),Math.floor(s/60)%60,s%60].map(n=>String(n).padStart(2,'0')).join(':')}
 function toggleWork(){const wid=ui.uid,act=active(wid);
+ if(SBs&&sbLvl()===1){const out=!!act,project=out?null:$('proj').value;
+  const go=g=>{sbReq('/rest/v1/rpc/'+(out?'clock_out':'clock_in'),{method:'POST',body:out?{p_lat:g?g.lat:null,p_lng:g?g.lng:null}:{p_project:project,p_lat:g?g.lat:null,p_lng:g?g.lng:null}}).then(r=>{if(r&&r.id){const i=S.sessions.findIndex(x=>x.id===r.id);if(i>=0)S.sessions[i]=r;else S.sessions.push(r)}sbLast='';sbSoon();render()}).catch(e=>{alert(e.message);sbLast='';sbSoon()})};
+  if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>go({lat:+p.coords.latitude.toFixed(5),lng:+p.coords.longitude.toFixed(5)}),()=>go(null),{timeout:6000});else go(null);return}
  if(act){const brk=brkMin();const fin=g=>{const z=zone(act.project,g);act.end=Date.now();act.brk=brk;act.gpsOut=g;act.okOut=z.ok;act.distOut=z.d;persist();render()};
  if(navigator.geolocation)navigator.geolocation.getCurrentPosition(p=>fin({lat:+p.coords.latitude.toFixed(5),lng:+p.coords.longitude.toFixed(5)}),()=>fin(null),{timeout:6000});else fin(null);return}
  const project=$('proj').value;
